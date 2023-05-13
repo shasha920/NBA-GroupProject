@@ -1,0 +1,860 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/30/2023 11:50:20 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TABLET-ACSR3A7P"
+  DTS:CreatorName="TABLET-ACSR3A7P\Daniel Nguyen"
+  DTS:DTSID="{D718E698-C2BA-404C-8A90-56F242BF71B6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5035.3"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="56"
+  DTS:VersionGUID="{69240C6E-BA1C-48CA-935E-9D7C39FBC0A5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[TABLET-ACSR3A7P\SQLEXPRESS.NBA]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+      DTS:ObjectName="TABLET-ACSR3A7P\SQLEXPRESS.NBA">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=TABLET-ACSR3A7P\SQLEXPRESS;Initial Catalog=NBA;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}TABLET-ACSR3A7P\SQLEXPRESS.NBA;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Average_player_stats"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{63DBD07A-56B4-4F41-A5FB-BDD25FCA655A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Average_player_stats"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="DROP TABLE IF EXISTS average_player_stats;&#xA;&#xA;CREATE TABLE average_player_stats (&#xA;  team_id INTEGER NOT NULL,&#xA;  player_id INTEGER NOT NULL,&#xA;  season VARCHAR(255) NOT NULL,&#xA;  team_abb VARCHAR(255),&#xA;  games_played INTEGER,&#xA;  minutes_played_avg DECIMAL(10,2),&#xA;  field_goals_made_avg DECIMAL(10,2),&#xA;  field_goals_attempted_avg DECIMAL(10,2),&#xA;  three_pointers_made_avg DECIMAL(10,2),&#xA;  three_pointers_attempted_avg DECIMAL(10,2),&#xA;  free_throws_made_avg DECIMAL(10,2),&#xA;  free_throws_attempted_avg DECIMAL(10,2),&#xA;  rebounds_total_avg DECIMAL(10,2),&#xA;  assists_total_avg DECIMAL(10,2),&#xA;  steals_total_avg DECIMAL(10,2),&#xA;  blocks_total_avg DECIMAL(10,2),&#xA;  turnovers_total_avg DECIMAL(10,2),&#xA;  personal_fouls_total_avg DECIMAL(10,2),&#xA;  points_scored_avg DECIMAL(10,2),&#xA;  PRIMARY KEY (team_id, player_id, season)&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Total Player Stats"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{307B66EA-53DE-4012-9C06-B919D783F690}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Total Player Stats"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists  total_player_stats;&#xA;&#xA;CREATE TABLE total_player_stats (&#xA;  team_id INTEGER not null,&#xA;  player_id INTEGER not null,&#xA;season varchar(255) not null,&#xA;  team_abb VARCHAR(255),&#xA;  games_played INTEGER,&#xA;  minutes_played INTEGER,&#xA;  field_goals_made INTEGER,&#xA;  field_goals_attempted INTEGER,&#xA;  three_pointers_made INTEGER,&#xA;  three_pointers_attempted INTEGER,&#xA;  free_throws_made INTEGER,&#xA;  free_throws_attempted INTEGER,&#xA;  rebounds_total INTEGER,&#xA;  assists_total INTEGER,&#xA;  steals_total INTEGER,&#xA;  blocks_total INTEGER,&#xA;  turnovers_total INTEGER,&#xA;  personal_fouls_total INTEGER,&#xA;  points_scored_total INTEGER,&#xA;  PRIMARY KEY (team_id, player_id, season)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_box_score"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BB986F6A-A8DD-405F-B46E-AC652C0571F8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_box_score"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists boxscore;&#xA;CREATE TABLE boxscore (&#xA;  game_id INT PRIMARY KEY not null,&#xA;  player_id INT,&#xA;  team VARCHAR(255),&#xA;  game_date DATE,&#xA;  matchup VARCHAR(255),&#xA;  home_team VARCHAR(255),&#xA;  away_team VARCHAR(255),&#xA;  home_team_id INT,&#xA;  away_team_id INT,&#xA;  minutes_played FLOAT,&#xA;  field_goals_made INT,&#xA;  field_goals_attempted INT,&#xA;  three_point_field_goal_made INT,&#xA;  three_point_field_goal_attempted INT,&#xA;  free_throws_made INT,&#xA;  free_throws_attempted INT,&#xA;  rebounds INT,&#xA;  assists INT,&#xA;  steals INT,&#xA;  blocks INT,&#xA;  turnovers INT,&#xA;  personal_fouls INT,&#xA;  points_scored INT,&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_coach"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{67BBDD76-1275-4F16-93AE-D9DDE38B7C58}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_coach"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="DROP TABLE IF EXISTS coach;&#xA;&#xA;CREATE TABLE coach (&#xA;  &#xA;coach_id INT PRIMARY KEY not null,&#xA; &#xA; first_name VARCHAR(255),&#xA;&#xA; last_name VARCHAR(255),&#xA;  &#xA;salary FLOAT,&#xA; &#xA;position VARCHAR(255)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_conference"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F8E9F4D1-8C42-44EE-AB58-2CA7B2527109}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_conference"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="DROP TABLE IF EXISTS conference;&#xA;CREATE TABLE conference (&#xA;  conference_id INT PRIMARY KEY not null,&#xA;  conference_name VARCHAR(255)&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_divisions"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{99995A4A-AA0F-43D1-AB2F-91B83FD75410}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_divisions"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists division;&#xA;CREATE TABLE division (&#xA;  division_id INT PRIMARY KEY not null,&#xA;  division_name VARCHAR(255),&#xA;  conference_id INT&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_owner"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{255575DE-E384-42B6-B451-156D5BCDE0C9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_owner"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="&#xA;&#xA;DROP TABLE if exists owner;&#xA;&#xA;CREATE TABLE owner (&#xA;owner_id INT PRIMARY KEY NOT NULL,&#xA;owner_first_name VARCHAR(255),&#xA;owner_last_name VARCHAR(255)&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_Table_player"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6228F394-E67A-4EDA-A80E-F7B2E08A29C3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_Table_player"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="DROP TABLE IF EXISTS player&#xA;;&#xA;&#xA;CREATE TABLE player (&#xA;  &#xA;player_id INT NOT NULL,&#xA;player_first_name VARCHAR(255),&#xA;player_last_name VARCHAR(255),&#xA;team_id INT Not Null,&#xA;age INT,&#xA;player_height float,&#xA;player_weight float,&#xA;college VARCHAR(255),&#xA;country VARCHAR(255),&#xA;PRIMARY KEY (Player_ID)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_season"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1CE258F0-DB6F-40CD-8CB2-37F1F978FCBA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_season"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists season;&#xA;&#xA;CREATE TABLE season (&#xA;  &#xA;season varchar(255) PRIMARY KEY not null,&#xA;  &#xA;start_date date,&#xA; &#xA; regular_season_end_date date,&#xA; &#xA; end_date date&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_stadium"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6D82BFB4-7DD0-4F1B-A315-31B809518363}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_stadium"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists stadium;&#xA;CREATE TABLE stadium (&#xA;  stadium_id INT PRIMARY KEY NOT NULL,&#xA;  stadium_name VARCHAR(255) NOT NULL,&#xA;  address VARCHAR(255),&#xA;  city VARCHAR(255),&#xA;  state VARCHAR(255),&#xA;  zip VARCHAR(255),&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create_NBA_table_team"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{77A394B7-63CB-48DA-8EDE-B9BC5F1ABB7D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create_NBA_table_team"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="DROP TABLE IF EXISTS team;&#xA;&#xA;CREATE TABLE team (&#xA;  &#xA;team_id INT PRIMARY KEY NOT NULL,&#xA;team_name VARCHAR(255),&#xA;city VARCHAR(255),&#xA;state_province VARCHAR(255),  &#xA;country VARCHAR(255), &#xA;owner_id INT,  &#xA;conference_id INT,&#xA;division_id INT,&#xA;stadium_id INT,&#xA;coach_id INT&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Input Data"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A5A8B0F0-86AA-4CA2-96DB-4BC193FB0BD0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Input Data"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="INSERT INTO season &#xA;(season, start_date, regular_season_end_date, end_date)&#xA;VALUES ('2021-22', '2021-10-19', '2022-04-10', '2022-06-16');&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\team constraints"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{84C16D28-D327-47AA-9E34-8FCCBA14967E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="team constraints"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="ALTER TABLE team&#xA;ADD CONSTRAINT team_owner_fk&#xA;FOREIGN KEY (owner_id)&#xA;REFERENCES owner(owner_id);&#xA;&#xA;ALTER TABLE team&#xA;ADD CONSTRAINT team_conference_fk&#xA;FOREIGN KEY (conference_id)&#xA;REFERENCES conference(conference_id);&#xA;&#xA;ALTER TABLE team&#xA;ADD CONSTRAINT team_division_fk&#xA;FOREIGN KEY (division_id)&#xA;REFERENCES division(division_id);&#xA;&#xA;ALTER TABLE team&#xA;ADD CONSTRAINT team_coach_fk&#xA;FOREIGN KEY (coach_id)&#xA;REFERENCES coach(coach_id);&#xA;&#xA;ALTER TABLE team&#xA;ADD CONSTRAINT team_stadium_fk&#xA;FOREIGN KEY (stadium_id)&#xA;REFERENCES stadium(stadium_id);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Team Stat Average"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D9CDED08-1D46-4EF6-A324-7E2791F2C152}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Team Stat Average"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists average_team_stats;&#xA;&#xA;CREATE TABLE average_team_stats (&#xA;  season VARCHAR(255) NOT NULL,&#xA;  team_id INTEGER NOT NULL,&#xA;  team VARCHAR(255),&#xA;  minutes_played_average DECIMAL(10,2),&#xA;  field_goals_made_average DECIMAL(10,2),&#xA;  field_goals_attempted_average DECIMAL(10,2),&#xA;  three_pointers_made_average DECIMAL(10,2),&#xA;  three_pointers_attempted_average DECIMAL(10,2),&#xA;  free_throws_made_average DECIMAL(10,2),&#xA;  free_throws_attempted_average DECIMAL(10,2),&#xA;  rebounds_average DECIMAL(10,2),&#xA;  assists_average DECIMAL(10,2),&#xA;  steals_average DECIMAL(10,2),&#xA;  blocks_average DECIMAL(10,2),&#xA;  turnovers_average DECIMAL(10,2),&#xA;  personal_fouls_average DECIMAL(10,2),&#xA;  points_scored_average DECIMAL(10,2),&#xA;  PRIMARY KEY (season, team_id)&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Total Team Stats"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{ABD78E4E-E279-439E-B594-35DFAB788975}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Total Team Stats"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{914D6F9A-CDF3-4D44-B5DD-0A1D6828D40C}"
+          SQLTask:SqlStatementSource="drop table if exists total_team_stats;&#xA;CREATE TABLE total_team_stats (&#xA;  season VARCHAR(255) NOT NULL,&#xA;  team_id INTEGER NOT NULL,&#xA;  team VARCHAR(255),&#xA;  minutes_played_total INTEGER,&#xA;  field_goals_made_total INTEGER,&#xA;  field_goals_attempted_total INTEGER,&#xA;  three_pointers_made_total INTEGER,&#xA;  three_pointers_attempted_total INTEGER,&#xA;  free_throws_made_total INTEGER,&#xA;  free_throws_attempted_total INTEGER,&#xA;  rebounds_total INTEGER,&#xA;  assists_total INTEGER,&#xA;  steals_total INTEGER,&#xA;  blocks_total INTEGER,&#xA;  turnovers_total INTEGER,&#xA;  personal_fouls_total INTEGER,&#xA;  points_scored_total INTEGER,&#xA;  PRIMARY KEY (season, team_id)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C79449DB-9920-4932-8C19-50DD872B25D7}"
+      DTS:From="Package\Create_NBA_Table_player"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Create_NBA_table_team" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{CF476B58-35D6-41B8-ADD2-EF31ACDB51ED}"
+      DTS:From="Package\Create_NBA_table_team"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Create_NBA_table_coach" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{89724C41-ECB1-4EFF-BD33-858F9DAF814C}"
+      DTS:From="Package\Create Total Player Stats"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Total Team Stats" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 11]"
+      DTS:CreationName=""
+      DTS:DTSID="{73F87733-AF3F-480C-BC47-B1AE95A75EBD}"
+      DTS:From="Package\Total Team Stats"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 11"
+      DTS:To="Package\Average_player_stats" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
+      DTS:CreationName=""
+      DTS:DTSID="{129CF93C-0999-4581-B7DD-1212FDDCACE9}"
+      DTS:From="Package\Average_player_stats"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 12"
+      DTS:To="Package\Team Stat Average" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 13]"
+      DTS:CreationName=""
+      DTS:DTSID="{28AF6C28-14DA-4FEE-924D-199CC94F43C9}"
+      DTS:From="Package\Team Stat Average"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 13"
+      DTS:To="Package\team constraints" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{C1E2D261-2DE5-4B05-B49E-AD3BB970A00C}"
+      DTS:From="Package\Create_NBA_table_coach"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Create_NBA_table_owner" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{08F95AD7-5F8F-4AD0-84B7-2CCF8C67B4FC}"
+      DTS:From="Package\Create_NBA_table_owner"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Create_NBA_table_stadium" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{C1CDADD0-07C9-487B-9BBC-3361518AAD29}"
+      DTS:From="Package\Create_NBA_table_stadium"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Create_NBA_table_season" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{CD4CC375-AF62-4446-AA86-E9C0916D9CB4}"
+      DTS:From="Package\Create_NBA_table_season"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Create_NBA_table_divisions" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{C5FA500D-02B7-40A0-86E9-69084923F7C1}"
+      DTS:From="Package\Create_NBA_table_divisions"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Create_NBA_table_conference" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{92E08012-E912-457F-8224-34809B0DF036}"
+      DTS:From="Package\Create_NBA_table_conference"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Create_NBA_table_box_score" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{4B367F69-D4EF-4498-BCC0-432B446FFA07}"
+      DTS:From="Package\Create_NBA_table_season"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Input Data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A701E73-C98D-4304-95F1-6B832B337E42}"
+      DTS:From="Package\Create_NBA_table_box_score"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Create Total Player Stats" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Create_NBA_table_box_score"
+          TopLeft="259,198" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Create_NBA_table_coach"
+          TopLeft="637,123" />
+        <NodeLayout
+          Size="222,42"
+          Id="Package\Create_NBA_table_conference"
+          TopLeft="579,206" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\Create_NBA_table_divisions"
+          TopLeft="846,204" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Create_NBA_table_owner"
+          TopLeft="860,127" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Create_NBA_Table_player"
+          TopLeft="153,126" />
+        <NodeLayout
+          Size="203,43"
+          Id="Package\Create_NBA_table_season"
+          TopLeft="1106,210" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\Create_NBA_table_stadium"
+          TopLeft="1101,126" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Create_NBA_table_team"
+          TopLeft="392,122" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Input Data"
+          TopLeft="1101,285" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="354,145">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38,0"
+              Start="0,0"
+              End="30.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="30.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="595,143.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42,0"
+              Start="0,0"
+              End="34.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="34.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="834,146">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26,0"
+              Start="0,0"
+              End="18.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="1059,147.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42,0"
+              Start="0,0"
+              End="34.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="34.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="1206,168">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="1106,228.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-50,0"
+              Start="0,0"
+              End="-42.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-42.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="846,226">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-45,0"
+              Start="0,0"
+              End="-37.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-37.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="579,227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-102,-8"
+              Start="0,0"
+              End="-94.5,-8">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-47,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-47,0"
+                    Point2="-51,0"
+                    Point3="-51,-4" />
+                  <mssgle:LineSegment
+                    End="-51,-4" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-51,-4"
+                    Point2="-51,-8"
+                    Point3="-55,-8" />
+                  <mssgle:LineSegment
+                    End="-94.5,-8" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="1207.5,253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-25,32"
+              Start="0,0"
+              End="-25,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12"
+                    Point2="0,16"
+                    Point3="-4,16" />
+                  <mssgle:LineSegment
+                    End="-21,16" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21,16"
+                    Point2="-25,16"
+                    Point3="-25,20" />
+                  <mssgle:LineSegment
+                    End="-25,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Create Total Player Stats"
+          TopLeft="265,309" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="365.25,240">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69"
+              Start="0,0"
+              End="0,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Total Team Stats"
+          TopLeft="594,328" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="460,330">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="134,19"
+              Start="0,0"
+              End="126.5,19">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="63,0"
+                    Point2="67,0"
+                    Point3="67,4" />
+                  <mssgle:LineSegment
+                    End="67,15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67,15"
+                    Point2="67,19"
+                    Point3="71,19" />
+                  <mssgle:LineSegment
+                    End="126.5,19" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Average_player_stats"
+          TopLeft="812,359" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 11]"
+          TopLeft="753,349">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59,31"
+              Start="0,0"
+              End="51.5,31">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="25.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.5,0"
+                    Point2="29.5,0"
+                    Point3="29.5,4" />
+                  <mssgle:LineSegment
+                    End="29.5,27" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.5,27"
+                    Point2="29.5,31"
+                    Point3="33.5,31" />
+                  <mssgle:LineSegment
+                    End="51.5,31" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Team Stat Average"
+          TopLeft="1030,376" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 12]"
+          TopLeft="992,380">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38,17"
+              Start="0,0"
+              End="30.5,17">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="15,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15,0"
+                    Point2="19,0"
+                    Point3="19,4" />
+                  <mssgle:LineSegment
+                    End="19,13" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19,13"
+                    Point2="19,17"
+                    Point3="23,17" />
+                  <mssgle:LineSegment
+                    End="30.5,17" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="157,42"
+          Id="Package\team constraints"
+          TopLeft="1078,463" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 13]"
+          TopLeft="1118,418">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38.5,45"
+              Start="0,0"
+              End="38.5,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.5"
+                    Point2="0,22.5"
+                    Point3="4,22.5" />
+                  <mssgle:LineSegment
+                    End="34.5,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.5,22.5"
+                    Point2="38.5,22.5"
+                    Point3="38.5,26.5" />
+                  <mssgle:LineSegment
+                    End="38.5,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
